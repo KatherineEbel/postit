@@ -1,0 +1,30 @@
+@import "bootstrap";
+
+.container {
+  margin-left: 135px
+}
+
+.navbar .nav > li > a.brand {
+  padding-left: 0;
+}
+
+.quiet {
+  color: #ababab;
+}
+
+div.nav_item {
+  margin-left: 25px;
+  float: left;
+}
+
+label {
+  a, a:hover, a:focus {
+    color: #fff;
+    text-decoration: none;
+  }
+}
+
+div.comment_votes {
+  padding: 10px;
+}
+
