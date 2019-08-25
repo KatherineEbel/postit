@@ -1,5 +1,13 @@
                                Prefix Verb   URI Pattern                                                                              Controller#Action
                                  root GET    /                                                                                        posts#index
+                        post_comments POST   /posts/:post_id/comments(.:format)                                                       comments#create
+                                posts GET    /posts(.:format)                                                                         posts#index
+                                      POST   /posts(.:format)                                                                         posts#create
+                             new_post GET    /posts/new(.:format)                                                                     posts#new
+                            edit_post GET    /posts/:id/edit(.:format)                                                                posts#edit
+                                 post GET    /posts/:id(.:format)                                                                     posts#show
+                                      PATCH  /posts/:id(.:format)                                                                     posts#update
+                                      PUT    /posts/:id(.:format)                                                                     posts#update
         rails_mandrill_inbound_emails POST   /rails/action_mailbox/mandrill/inbound_emails(.:format)                                  action_mailbox/ingresses/mandrill/inbound_emails#create
         rails_postmark_inbound_emails POST   /rails/action_mailbox/postmark/inbound_emails(.:format)                                  action_mailbox/ingresses/postmark/inbound_emails#create
            rails_relay_inbound_emails POST   /rails/action_mailbox/relay/inbound_emails(.:format)                                     action_mailbox/ingresses/relay/inbound_emails#create
