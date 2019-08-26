@@ -5,3 +5,13 @@
   <p><%= @post.description %></p>
   <%= link_to 'edit', edit_post_path(@post) %>
 </div>
+<%= render 'shared/errors', obj: @comment %>
+<%= form_with(model: [@post, @comment], html: {class: 'm-3'}) do |f| %>
+  <div class="form-group">
+    <%= f.label 'Leave a comment' %>
+    <%= f.text_area :body, class: 'form-control' %>
+  </div>
+  <%= f.submit 'Add Comment', class: 'btn btn-success' %>
+<% end %>
+<h4>Comments:</h4>
+<%= render @post.comments %>

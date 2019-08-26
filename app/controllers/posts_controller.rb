@@ -25,7 +25,9 @@ class PostsController < ApplicationController
 
   def edit; end
 
-  def show; end
+  def show
+    @comment = Comment.new
+  end
 
   def update
     if @post.save
