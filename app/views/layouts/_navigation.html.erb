@@ -1,8 +1,27 @@
-<ul class="navbar nav">
-  <li>
-    <%= link_to "Postit!", root_path, :class => 'brand' %>
+<ul class="navbar nav navbar-light d-flex justify-content-start">
+  <li class="nav-item pr-2">
+    <%= link_to "Postit!", root_path, :class => 'navbar-brand' %>
   </li>
-  <li>
-    <%= link_to 'link', '' %>
+  <li class="nav-item pr-2">
+    <%= link_to 'Add Post', new_post_path, class: 'btn btn-success btn-sm' %>
+  </li>
+  <li class="nav-item dropdown pr-2">
+    <button
+        id="dropdownMenuButton"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+      class="btn btn-primary dropdown-toggle">
+      Categories
+    </button>
+    <div
+        aria-labelledby="dropdownMenuButton"
+        class="dropdown-menu">
+      <% Category.all.each do |category| %>
+        <%= link_to category.name, category_path(category) %>
+      <% end %>
+      <div class="dropdown-divider"></div>
+      <%= link_to 'Add Category', new_category_path %>
+    </div>
   </li>
 </ul>

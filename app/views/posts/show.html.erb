@@ -1,4 +1,7 @@
 <%= render @post.categories %>
 <%= render 'shared/content_title', title: @post.title %>
 <hr />
-<p><%= @post.description %></p>
+<div class="row">
+  <p><%= @post.description %></p>
+  <%= link_to 'edit', edit_post_path(@post) %>
+</div>

@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
+# posts_controller.rb
 class PostsController < ApplicationController
-  before_action :find_post, only: %i[edit show update]
+  before_action :set_post, only: %i[edit show update]
+
   def index
     @posts = Post.all
   end
@@ -12,6 +14,7 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new post_params
+    @post.creator = User.first # TODO: assign user dynamically
     if @post.save
       flash[:notice] = 'Post created successfully'
       redirect_to posts_path
@@ -20,17 +23,22 @@ class PostsController < ApplicationController
     end
   end
 
-  def edit
-    @post = Post.new post_params
-  end
+  def edit; end
 
   def show; end
 
-  def update; end
+  def update
+    if @post.save
+      flash[:notice] = 'Post successfully updated'
+      redirect_to post_path @post.id
+    else
+      render :edit
+    end
+  end
 
   private
 
-  def find_post
+  def set_post
     @post = Post.find(params[:id])
   end
 
