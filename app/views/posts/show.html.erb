@@ -2,16 +2,20 @@
 <%= render 'shared/content_title', title: @post.title %>
 <hr />
 <div class="row">
-  <p><%= @post.description %></p>
-  <%= link_to 'edit', edit_post_path(@post) %>
+  <p class="w-75"><%= @post.description %></p>
+  <% unless unauthorized? %>
+    <%= link_to '( edit post )', edit_post_path(@post), class: 'w-25' %>
+  <% end %>
 </div>
-<%= render 'shared/errors', obj: @comment %>
-<%= form_with(model: [@post, @comment], html: {class: 'm-3'}) do |f| %>
-  <div class="form-group">
-    <%= f.label 'Leave a comment' %>
-    <%= f.text_area :body, class: 'form-control' %>
-  </div>
-  <%= f.submit 'Add Comment', class: 'btn btn-success' %>
+<% unless unauthorized? %>
+  <%= render 'shared/errors', obj: @comment %>
+  <%= form_with(model: [@post, @comment], html: {class: 'm-3'}) do |f| %>
+    <div class="form-group">
+      <%= f.label 'Leave a comment' %>
+      <%= f.text_area :body, class: 'form-control' %>
+    </div>
+    <%= f.submit 'Add Comment', class: 'btn btn-success' %>
+  <% end %>
 <% end %>
 <h4>Comments:</h4>
 <%= render @post.comments %>
