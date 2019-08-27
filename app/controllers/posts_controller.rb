@@ -30,7 +30,7 @@ class PostsController < ApplicationController
   end
 
   def update
-    if @post.save
+    if @post.update(post_params)
       flash[:notice] = 'Post successfully updated'
       redirect_to post_path @post.id
     else
@@ -45,6 +45,8 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:description, :title, :url)
+    p = params.require(:post).permit(:description, :title, :url, category_ids: [])
+    p[:category_ids].reject!(&:blank?)
+    p
   end
 end

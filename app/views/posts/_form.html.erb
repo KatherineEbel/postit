@@ -12,6 +12,11 @@
     <%= f.label :description %>
     <%= f.text_area :description, class: 'form-control' %>
   </div>
+  <div class="form-group">
+    <%= f.collection_check_boxes :category_ids, Category.all, :id, :name do |b| %>
+      <%= b.label %> <%= b.check_box(class: 'mr-2')%>
+    <% end %>
+  </div>
   <%= f.submit("#{@post.new_record? ? 'Create' : 'Edit'} Post",
                class: 'btn btn-primary') %>
 <% end %>

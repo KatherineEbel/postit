@@ -5,6 +5,8 @@
         "<%= comment.body %>"
       </em>
     </p>
-    <p>by <span class="text-primary"><%= comment.creator.username %></span> at <%= comment.created_at %></p>
+    <p>by <span class="text-primary"><%= comment.creator.username %></span>
+      at <%= comment.created_at.to_formatted_s(:month_day_year) %>
+    </p>
   </div>
 </div>
