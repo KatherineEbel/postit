@@ -2,7 +2,7 @@
 
 # posts_controller.rb
 class PostsController < ApplicationController
-  before_action :set_post, only: %i[edit show update]
+  before_action :set_post, only: %i[edit show update vote]
   before_action :require_user, except: %i[index show]
 
   def index
@@ -37,6 +37,16 @@ class PostsController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def vote
+    vote = @post.votes.create(vote: params[:vote], voter: current_user)
+    if vote.valid?
+      flash[:notice] = 'Vote counted'
+    else
+      flash[:error] = 'You already voted on this one'
+    end
+    redirect_back(fallback_location: root_path)
   end
 
   private
