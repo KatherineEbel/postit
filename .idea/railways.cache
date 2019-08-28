@@ -5,6 +5,7 @@
                                       POST   /login(.:format)                                                                         sessions#create
                                logout GET    /logout(.:format)                                                                        sessions#destroy
                             vote_post POST   /posts/:id/vote(.:format)                                                                posts#vote
+                    vote_post_comment POST   /posts/:post_id/comments/:id/vote(.:format)                                              comments#vote
                         post_comments POST   /posts/:post_id/comments(.:format)                                                       comments#create
                                 posts GET    /posts(.:format)                                                                         posts#index
                                       POST   /posts(.:format)                                                                         posts#create

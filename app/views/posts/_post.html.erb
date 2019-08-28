@@ -3,14 +3,18 @@
     <div
       class="card-body d-flex flex-column justify-content-center align-items-center"
     >
-      <%= link_to vote_post_path(post, vote: true), method: :post do %>
-        <i class="far fa-thumbs-up fa-lg"></i>
+      <% unless unauthorized? %>
+        <%= link_to vote_post_path(post, vote: true), method: :post do %>
+          <i class="far fa-thumbs-up fa-lg"></i>
+        <% end %>
       <% end %>
       <span>
         <%= post.total_votes %> <%= 'vote'.pluralize post.total_votes %>
       </span>
-      <%= link_to vote_post_path(post, vote: false), method: :post do %>
-        <i class="far fa-thumbs-down fa-lg"></i>
+      <% unless unauthorized? %>
+        <%= link_to vote_post_path(post, vote: false), method: :post do %>
+          <i class="far fa-thumbs-down fa-lg"></i>
+        <% end %>
       <% end %>
     </div>
   </div>
