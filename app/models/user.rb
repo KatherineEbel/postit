@@ -3,5 +3,10 @@
 # user.rb
 class User < ApplicationRecord
   has_many :comments
-  has_many :posts, foreign_key: :user_id
+  has_many :posts
+  has_many :votes
+  has_secure_password validations: false
+
+  validates :username, presence: true, uniqueness: true
+  validates :password, presence: true, on: :create, length: { minimum: 6 }
 end

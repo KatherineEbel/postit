@@ -1,5 +1,11 @@
                                Prefix Verb   URI Pattern                                                                              Controller#Action
                                  root GET    /                                                                                        posts#index
+                             register GET    /register(.:format)                                                                      users#new
+                                login GET    /login(.:format)                                                                         sessions#new
+                                      POST   /login(.:format)                                                                         sessions#create
+                               logout GET    /logout(.:format)                                                                        sessions#destroy
+                            vote_post POST   /posts/:id/vote(.:format)                                                                posts#vote
+                    vote_post_comment POST   /posts/:post_id/comments/:id/vote(.:format)                                              comments#vote
                         post_comments POST   /posts/:post_id/comments(.:format)                                                       comments#create
                                 posts GET    /posts(.:format)                                                                         posts#index
                                       POST   /posts(.:format)                                                                         posts#create
@@ -8,14 +14,15 @@
                                  post GET    /posts/:id(.:format)                                                                     posts#show
                                       PATCH  /posts/:id(.:format)                                                                     posts#update
                                       PUT    /posts/:id(.:format)                                                                     posts#update
-                           categories GET    /categories(.:format)                                                                    categories#index
-                                      POST   /categories(.:format)                                                                    categories#create
+                           categories POST   /categories(.:format)                                                                    categories#create
                          new_category GET    /categories/new(.:format)                                                                categories#new
-                        edit_category GET    /categories/:id/edit(.:format)                                                           categories#edit
                              category GET    /categories/:id(.:format)                                                                categories#show
-                                      PATCH  /categories/:id(.:format)                                                                categories#update
-                                      PUT    /categories/:id(.:format)                                                                categories#update
-                                      DELETE /categories/:id(.:format)                                                                categories#destroy
+                                users GET    /users(.:format)                                                                         users#index
+                                      POST   /users(.:format)                                                                         users#create
+                            edit_user GET    /users/:id/edit(.:format)                                                                users#edit
+                                 user GET    /users/:id(.:format)                                                                     users#show
+                                      PATCH  /users/:id(.:format)                                                                     users#update
+                                      PUT    /users/:id(.:format)                                                                     users#update
         rails_mandrill_inbound_emails POST   /rails/action_mailbox/mandrill/inbound_emails(.:format)                                  action_mailbox/ingresses/mandrill/inbound_emails#create
         rails_postmark_inbound_emails POST   /rails/action_mailbox/postmark/inbound_emails(.:format)                                  action_mailbox/ingresses/postmark/inbound_emails#create
            rails_relay_inbound_emails POST   /rails/action_mailbox/relay/inbound_emails(.:format)                                     action_mailbox/ingresses/relay/inbound_emails#create

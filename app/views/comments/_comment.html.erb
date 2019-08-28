@@ -1,12 +1,39 @@
-<div class="card">
-  <div class="card-body">
-    <p>
-      <em class="card-title">
-        "<%= comment.body %>"
-      </em>
-    </p>
-    <p>by <span class="text-primary"><%= comment.creator.username %></span>
-      at <%= comment.created_at.to_formatted_s(:month_day_year) %>
-    </p>
+<% linked ||= false %>
+<div class="d-flex align-items-center">
+  <div class="card flex-grow-0 m-3">
+    <div
+      class="card-body d-flex flex-column justify-content-center align-items-center"
+    >
+      <% unless unauthorized? %>
+        <%= link_to vote_post_comment_path(comment, vote: true), method: :post do %>
+          <i class="far fa-thumbs-up fa-lg"></i>
+        <% end %>
+      <% end %>
+      <span>
+        <%= comment.total_votes %> <%= 'vote'.pluralize comment.total_votes %>
+      </span>
+      <% unless unauthorized? %>
+        <%= link_to vote_post_comment_path(comment, vote: false), method: :post do %>
+          <i class="far fa-thumbs-down fa-lg"></i>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <p>
+        <em class="card-title">
+          "<%= comment.body %>"
+        </em>
+        <% if linked %>
+          on <%= link_to comment.post.title, comment.post %>
+        <% end %>
+      </p>
+      <p>by <span>
+      <%= link_to comment.creator.username, comment.creator %>
+    </span>
+        at <%= comment.created_at.to_formatted_s(:month_day_year) %>
+      </p>
+    </div>
   </div>
 </div>

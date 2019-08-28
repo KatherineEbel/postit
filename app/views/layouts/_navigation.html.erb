@@ -1,27 +1,69 @@
-<ul class="navbar nav navbar-light d-flex justify-content-start">
-  <li class="nav-item pr-2">
-    <%= link_to "Postit!", root_path, :class => 'navbar-brand' %>
-  </li>
-  <li class="nav-item pr-2">
-    <%= link_to 'Add Post', new_post_path, class: 'btn btn-success btn-sm' %>
-  </li>
-  <li class="nav-item dropdown pr-2">
-    <button
-        id="dropdownMenuButton"
-        data-toggle="dropdown"
-        aria-haspopup="true"
-        aria-expanded="false"
-      class="btn btn-primary dropdown-toggle">
-      Categories
-    </button>
-    <div
-        aria-labelledby="dropdownMenuButton"
-        class="dropdown-menu">
-      <% Category.all.each do |category| %>
-        <%= link_to category.name, category_path(category) %>
+<nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between">
+  <%= link_to "Postit!", root_path, :class => 'navbar-brand' %>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav d-flex align-items-center ml-auto">
+      <li class="nav-item dropdown p-2">
+        <a
+          id="dropdownCategories"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+          class="nav-link dropdown-toggle">
+          Categories
+        </a>
+        <div
+          aria-labelledby="dropdownCategories"
+          class="dropdown-menu p-2">
+          <% Category.all.each do |category| %>
+            <%= link_to category.name, category_path(category) %>
+          <% end %>
+          <% unless unauthorized? %>
+            <div class="dropdown-divider"></div>
+            <%= link_to 'Add Category', new_category_path %>
+          <% end %>
+        </div>
+      </li>
+      <% if unauthorized? %>
+        <li class="nav-item p-2">
+          <%= link_to 'Register', register_path, class: 'btn btn-success' %>
+        </li>
+        <li class="nav-item p-2">
+          <%= link_to 'Log In', login_path, class: 'btn btn-secondary' %>
+        </li>
+      <% else %>
+        <li class="nav-item dropdown">
+          <a
+            id="dropdownProfileLink"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+            class="nav-link dropdown-toggle">
+            <%= current_user.username %>
+          </a>
+          <div
+            aria-labelledby="dropdownProfileLink"
+            class="dropdown-menu p-2" >
+            <%= link_to edit_user_path(current_user) do  %>
+              <i class="fas fa-user-edit"></i>
+              <span class="ml-2">edit profile</span>
+            <% end %>
+            <%= link_to user_path(current_user) do  %>
+              <i class="fas fa-user"></i>
+              <span class="ml-2">view profile</span>
+            <% end %>
+            <%= link_to logout_path, class: 'w-100' do  %>
+              <i class="fas fa-sign-out-alt"></i>
+              <span class="ml-2">log out</span>
+            <% end %>
+          </div>
+        </li>
+        <li class="nav-item p-2">
+          <%= link_to 'Add Post', new_post_path, class: 'btn btn-success btn-sm' %>
+        </li>
       <% end %>
-      <div class="dropdown-divider"></div>
-      <%= link_to 'Add Category', new_category_path %>
-    </div>
-  </li>
-</ul>
+    </ul>
+  </div>
+</nav>

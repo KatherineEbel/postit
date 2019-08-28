@@ -2,7 +2,8 @@
 
 # posts_controller.rb
 class PostsController < ApplicationController
-  before_action :set_post, only: %i[edit show update]
+  before_action :set_post, only: %i[edit show update vote]
+  before_action :require_user, except: %i[index show]
 
   def index
     @posts = Post.all
@@ -14,7 +15,7 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new post_params
-    @post.creator = User.first # TODO: assign user dynamically
+    @post.creator = @current_user
     if @post.save
       flash[:notice] = 'Post created successfully'
       redirect_to posts_path
@@ -36,6 +37,16 @@ class PostsController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def vote
+    vote = @post.votes.create(vote: params[:vote], voter: current_user)
+    if vote.valid?
+      flash[:notice] = 'Vote counted'
+    else
+      flash[:error] = 'You already voted on this one'
+    end
+    redirect_back(fallback_location: root_path)
   end
 
   private
