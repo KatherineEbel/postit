@@ -1,11 +1,17 @@
+<% linked ||= false %>
 <div class="card">
   <div class="card-body">
     <p>
       <em class="card-title">
         "<%= comment.body %>"
       </em>
+      <% if linked %>
+        on <%= link_to comment.post.title, comment.post %>
+      <% end %>
     </p>
-    <p>by <span class="text-primary"><%= comment.creator.username %></span>
+    <p>by <span>
+      <%= link_to comment.creator.username, comment.creator %>
+    </span>
       at <%= comment.created_at.to_formatted_s(:month_day_year) %>
     </p>
   </div>
