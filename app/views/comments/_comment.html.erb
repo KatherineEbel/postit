@@ -5,15 +5,17 @@
       class="card-body d-flex flex-column justify-content-center align-items-center"
     >
       <% unless unauthorized? %>
-        <%= link_to vote_post_comment_path(comment, vote: true), method: :post do %>
+        <%= link_to vote_post_comment_path(comment.post, comment, vote: true),
+                    method: :post, remote: true do %>
           <i class="far fa-thumbs-up fa-lg"></i>
         <% end %>
       <% end %>
-      <span>
+      <span id="comment_<%= comment.id %>_votes">
         <%= comment.total_votes %> <%= 'vote'.pluralize comment.total_votes %>
       </span>
       <% unless unauthorized? %>
-        <%= link_to vote_post_comment_path(comment, vote: false), method: :post do %>
+        <%= link_to vote_post_comment_path(comment.post, comment, vote: false),
+                    method: :post, remote: true do %>
           <i class="far fa-thumbs-down fa-lg"></i>
         <% end %>
       <% end %>

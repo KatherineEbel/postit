@@ -13,11 +13,11 @@ Rails.application.routes.draw do
 
   resources :posts, except: :destroy do
     member do
-      post 'vote'
+      post :vote
     end
     resources :comments, only: :create do
       member do
-        post 'vote'
+        post :vote
       end
     end
   end

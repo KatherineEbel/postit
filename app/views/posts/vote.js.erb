@@ -1,6 +1,6 @@
 <% if @vote.valid? %>
   $('#post_<%= @post.id %>_votes')
-      .html('<%= @post.total_votes%> <%= 'vote'.pluralize post.total_votes %>')
+      .html('<%= @post.total_votes%> <%= 'vote'.pluralize @post.total_votes %>')
 <% else %>
   alert(`You've already voted on this post.`)
 <% end %>
