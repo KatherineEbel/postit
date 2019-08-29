@@ -9,10 +9,7 @@
         <% end %>
       <% end %>
       <span id="post_<%= post.id %>_votes">
-        <%= post.total_votes %>
-      </span>
-      <span>
-        <%= 'vote'.pluralize post.total_votes %>
+        <%= post.total_votes %> <%= 'vote'.pluralize post.total_votes %>
       </span>
       <% unless unauthorized? %>
         <%= link_to vote_post_path(post, vote: false),
