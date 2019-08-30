@@ -40,19 +40,21 @@ class PostsController < ApplicationController
   end
 
   def vote
-    vote = @post.votes.create(vote: params[:vote], voter: current_user)
-    if vote.valid?
-      flash[:notice] = 'Vote counted'
-    else
-      flash[:error] = 'You already voted on this one'
+    @vote = @post.votes.create(vote: params[:vote], voter: current_user)
+    respond_to do |format|
+      format.html do
+        flash[:notice] = 'Vote counted' if @vote.valid?
+        flash[:error] = 'You can only vote once per post' unless @vote.valid?
+        redirect_back(fallback_location: root_path)
+      end
+      format.js
     end
-    redirect_back(fallback_location: root_path)
   end
 
   private
 
   def set_post
-    @post = Post.find(params[:id])
+    @post = Post.find_by(slug: params[:id])
   end
 
   def post_params
